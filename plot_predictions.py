@@ -19,10 +19,9 @@ def plot_training_loss(path_to_file_MAEs):
   plt.ylabel('Loss')
   plt.xlabel('Epoch')
   plt.legend()
-  return ax
 
 #saving model and figures
-def save_plot_model_predictions(path,tester,model,N,dim,layer_hidden,layer_output,dropout):
+def save_plot_model_predictions(path,N,dim,layer_hidden,layer_output,dropout,batch_test):
     torch.manual_seed(0)
     model = MolecularGraphNeuralNetwork(
         N, dim, layer_hidden, layer_output, dropout).to(device)
@@ -37,35 +36,35 @@ def save_plot_model_predictions(path,tester,model,N,dim,layer_hidden,layer_outpu
     file2=path+'/output'+time1+'pc-train.png'
     file3=path+'/output'+time1+'pc-test.png'
     file4=path+'/output'+time1+'pc-val.png'
+    tester=Tester(model,batch_test)
     predictions_train = tester.test_regressor(dataset_train)[1]
     tester.save_predictions(predictions_train, file_train_result )
     predictions_test = tester.test_regressor(dataset_test)[1]
     tester.save_predictions(predictions_test, file_test_result)
-      def rmse(y_true, y_pred):
+    def rmse(y_true, y_pred):
         return np.sqrt(mean_squared_error(y_true, y_pred))
-      res_tf = pd.read_table(file_train_result)
-      res_tf['Correct']=res_tf['Correct'].str.replace(r'\[|\]','',regex=True).apply(lambda x:float(x))
-      res_tf['Predict']=res_tf['Predict'].str.replace(r'\[|\]','',regex=True).apply(lambda x:float(x))
-      rmse=rmse(res_tf['Correct'],res_tf['Predict'])
-      r2 = r2_score(res_tf['Correct'], res_tf['Predict'])
-      mae = mean_absolute_error(res_tf['Correct'], res_tf['Predict'])
-      medae = median_absolute_error(res_tf['Correct'], res_tf['Predict'])
-      rmae = np.mean(np.abs(res_tf['Correct'] - res_tf['Predict']) / res_tf['Correct']) * 100
-      median_re = np.median(np.abs(res_tf['Correct'] - res_tf['Predict']) / res_tf['Correct'])
-      mean_re=np.mean(np.abs(res_tf['Correct'] - res_tf['Predict']) / res_tf['Correct'])
-      plt.plot(res_tf['Correct'], res_tf['Predict'], '.', color = 'blue')
-      plt.plot([-8,3], [-8,3], color ='red')
-      plt.ylabel('Predicted Property')  
-      plt.xlabel('Experimental Property')        
-      plt.text(-1,-3, 'R2='+str(round(r2,4)), fontsize=20)
-      plt.text(0.5,2.75,'MAE='+str(round(mae,4)),fontsize=12)
-      plt.text(-3, 2.75, 'MedAE='+str(round(medae,4)), fontsize=12)
-      plt.text(-7.5, 2.75, 'MRE='+str(round(mean_re,4)), fontsize=12)
-      plt.text(-4.5, 1, 'MedRE='+str(round(median_re,4)), fontsize=12)
-      plt.text(-4.5, 2, 'rmse='+str(round(rmse,4)), fontsize=12)
-      plt.savefig(file2,dpi=300)
-      plt.show()  
-      return ax
+    res_tf = pd.read_table(file_train_result)
+    res_tf['Correct']=res_tf['Correct'].str.replace(r'\[|\]','',regex=True).apply(lambda x:float(x))
+    res_tf['Predict']=res_tf['Predict'].str.replace(r'\[|\]','',regex=True).apply(lambda x:float(x))
+    rmse=rmse(res_tf['Correct'],res_tf['Predict'])
+    r2 = r2_score(res_tf['Correct'], res_tf['Predict'])
+    mae = mean_absolute_error(res_tf['Correct'], res_tf['Predict'])
+    medae = median_absolute_error(res_tf['Correct'], res_tf['Predict'])
+    rmae = np.mean(np.abs(res_tf['Correct'] - res_tf['Predict']) / res_tf['Correct']) * 100
+    median_re = np.median(np.abs(res_tf['Correct'] - res_tf['Predict']) / res_tf['Correct'])
+    mean_re=np.mean(np.abs(res_tf['Correct'] - res_tf['Predict']) / res_tf['Correct'])
+    plt.plot(res_tf['Correct'], res_tf['Predict'], '.', color = 'blue')
+    plt.plot([-8,3], [-8,3], color ='red')
+    plt.ylabel('Predicted Property')  
+    plt.xlabel('Experimental Property')        
+    plt.text(-1,-3, 'R2='+str(round(r2,4)), fontsize=20)
+    plt.text(0.5,2.75,'MAE='+str(round(mae,4)),fontsize=12)
+    plt.text(-3, 2.75, 'MedAE='+str(round(medae,4)), fontsize=12)
+    plt.text(-7.5, 2.75, 'MRE='+str(round(mean_re,4)), fontsize=12)
+    plt.text(-4.5, 1, 'MedRE='+str(round(median_re,4)), fontsize=12)
+    plt.text(-4.5, 2, 'rmse='+str(round(rmse,4)), fontsize=12)
+    plt.savefig(file2,dpi=300)
+    plt.show() 
   
     
 
