@@ -1,4 +1,4 @@
-# ADMET_POC
+# ADMET Prediction using GNNs
 
 
 This project uses graph neural networks to predict drug ADMET properties. Here, we use graph attention and graph convolutioal network to get molecular vectors.
