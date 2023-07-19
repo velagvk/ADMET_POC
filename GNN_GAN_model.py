@@ -154,6 +154,95 @@ class MolecularGraphNeuralNetwork(nn.Module):
     return Smiles,loss,predicted_scores,correct_labels
 
 
+class Trainer(object):
+  def __init__(self,model,lr,batch_train):
+    self.model=model
+    self.batch_train=batch_train  
+    self.lr=lr
+    self.optimizer=optim.Adam(self.model.parameters(),lr=self.lr)
+  def train(self,dataset):
+    np.random.shuffle(dataset)
+    N=len(dataset)
+    loss_total=0
+    SMILES,P,C='',[],[]
+    SAE=0
+    for i in range(0,N,self.batch_train):
+      data_batch=list(zip(*dataset[i:i+1+self.batch_train]))
+      Smiles,loss,predicted_scores,correct_labels=self.model.forward_regressor(data_batch,train=True)
+      SMILES+=''.join(Smiles)+''
+      P.append(predicted_scores)
+      C.append(correct_labels)
+      self.optimizer.zero_grad()
+      loss.backward()
+      self.optimizer.step()
+      loss_total+=loss.item()
+      SAE += sum(np.abs(predicted_scores-correct_labels))
+    tru=np.concatenate(C)
+    pre=np.concatenate(P)
+    MAE=loss/N
+    SMILES=SMILES.strip().split()
+    #pred=[1 if i>0.15 else 0 for i in pre]
+    predictions=np.stack((tru,pre))
+    return MAE,loss_total, predictions
+
+
+class Tester(object):
+    def __init__(self, model,batch_test):
+        self.model = model
+        self.batch_test=batch_test
+    def test_regressor(self, dataset):
+        N = len(dataset)
+        loss_total = 0
+        SAE=0
+        SMILES, P, C = '', [], []
+        for i in range(0, N, self.batch_test):
+            data_batch = list(zip(*dataset[i:i + self.batch_test]))
+            (Smiles, loss, predicted_scores, correct_labels) = self.model.forward_regressor(
+                data_batch, train=False)
+            SMILES += ' '.join(Smiles) + ' '
+            #loss_total += loss.item()
+            P.append(predicted_scores)
+            C.append(correct_labels)
+            SAE += sum(np.abs(predicted_scores-correct_labels))
+        
+        MAE=SAE/N
+        SMILES = SMILES.strip().split()
+        tru = np.concatenate(C)
+        pre = np.concatenate(P)
+        loss=np.abs(pre-tru)
+        #pred = [1 if i >0.15 else 0 for i in pre]
+        #AUC = roc_auc_score(tru, pre)
+        #cnf_matrix=confusion_matrix(tru,pred)
+        #tn = cnf_matrix[0, 0]
+        #tp = cnf_matrix[1, 1]
+        #fn = cnf_matrix[1, 0]
+        #fp = cnf_matrix[0, 1]
+        #cc = (tp + tn) / (tp + fp + fn + tn)
+        Tru=map(str,tru)
+        Pre=map(str,pre)
+        predictions = '\n'.join(['\t'.join(x) for x in zip(SMILES, Tru, Pre)])
+        #predictions = np.stack((tru, pre))
+        return  MAE, predictions
+
+    def save_result(self, result, filename):
+        with open(filename, 'a') as f:
+            f.write(result + '\n')
+
+    def save_predictions(self, predictions, filename):
+        with open(filename, 'w') as f:
+            f.write('Smiles\tCorrect\tPredict\n')
+            f.write(predictions + '\n')
+
+    def save_model(self, model, filename):
+        torch.save(model.state_dict(), filename)
+
+    def save_MAEs(self, MAEs, filename):
+        with open(filename, 'a') as f:
+            f.write(MAEs + '\n')
+   
+
+
+
 
 
 
