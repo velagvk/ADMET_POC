@@ -13,6 +13,7 @@ from Create_Data import *
 import pandas as pd
 import matplotlib.pyplot as plt
 from tdc.single_pred import ADME
+from plot_predictions import *
 
 
 def train (test_name, radius=1, dim=64, layer_hidden=4, layer_output=10, dropout=0.45, batch_train=8,
@@ -108,7 +109,10 @@ def train (test_name, radius=1, dim=64, layer_hidden=4, layer_output=10, dropout
                     
                     result = '\t'.join(map(str, [epoch, time, loss_train, MAE_train, MAE_test]))
                     tester.save_MAEs(result , file_MAEs )
-                    print(result)
+                return result
+
+
+
 
 
 
