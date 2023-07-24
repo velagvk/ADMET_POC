@@ -111,7 +111,7 @@ def train (test_name, radius=1, dim=64, layer_hidden=4, layer_output=10, dropout
                     tester.save_MAEs(result , file_MAEs )
                     file_model = path+ '/output/'+ 'model/' + 'model' + '.h5'
                     tester.save_model(model, file_model)     
-        return result
+              return result
 
 
 
