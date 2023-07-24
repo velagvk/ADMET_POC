@@ -25,7 +25,7 @@ def save_plot_model_predictions(path,N,dim,layer_hidden,layer_output,dropout,bat
     torch.manual_seed(0)
     model = MolecularGraphNeuralNetwork(
         N, dim, layer_hidden, layer_output, dropout).to(device)
-    model.load_state_dict(torch.load(r'path+ '/output/'+time1+'lipo_model'+'.h5'))
+    model.load_state_dict(torch.load(r'path'+ '/output/'+time1+'model'+'.h5'))
     model.eval()
     time1=str(datetime.datetime.now())[0:13]
     file_test_result  = path+'/output/'+time1+ '_test_prediction'+ '.txt'
