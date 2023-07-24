@@ -112,8 +112,7 @@ def train (radius, dim, layer_hidden, layer_output, dropout, batch_train,
                     tester.save_MAEs(result , file_MAEs )
                     file_model = path+ '/output/'+ 'model/' + 'model' + '.h5'
                     import os
-                    if not os.path.isdir('file_model'):
-                        os.makedirs('file_model')
+                    os.makedirs('file_model')
                     tester.save_model(model, file_model)
                     print(result)
               
