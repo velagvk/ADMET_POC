@@ -17,8 +17,8 @@ from plot_predictions import *
 folder=sys.argv[1]
 
 
-def train (test_name, radius=1, dim=64, layer_hidden=4, layer_output=10, dropout=0.45, batch_train=8,
-    batch_test=8, lr=1e-4, lr_decay=0.85, decay_interval=25, iteration=140, N=5000 ,path=folder):
+def train (radius, dim, layer_hidden, layer_output, dropout, batch_train,
+    batch_test, lr, lr_decay, decay_interval, iteration, N ,path):
 
           data=ADME(name='Caco2_Wang')
           split=data.get_split()
