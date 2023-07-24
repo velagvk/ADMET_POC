@@ -4,7 +4,7 @@
 from data_preprocess import *
 import pandas
 from rdkit import Chem
-rom collections import defaultdict
+from collections import defaultdict
 import numpy as np
 from rdkit import Chem
 import torch
