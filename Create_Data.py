@@ -3,7 +3,11 @@
 
 from data_preprocess import *
 import pandas
-
+from rdkit import Chem
+rom collections import defaultdict
+import numpy as np
+from rdkit import Chem
+import torch
 """
 This function takes the input smiles string from the pandas dataframe and creates new columns with adjacency matrix, fingerprint vector.
 """
