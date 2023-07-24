@@ -113,6 +113,7 @@ def train (radius, dim, layer_hidden, layer_output, dropout, batch_train,
                     file_model = path+ '/output/'+ 'model/' + 'model' + '.h5'
                     import os
                     os.makedirs('file_model')
+                    print("Directory '% s' created" % directory)
                     tester.save_model(model, file_model)
                     print(result)
               
