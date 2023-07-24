@@ -109,7 +109,7 @@ def train (test_name, radius=1, dim=64, layer_hidden=4, layer_output=10, dropout
                     
                     result = '\t'.join(map(str, [epoch, time, loss_train, MAE_train, MAE_test]))
                     tester.save_MAEs(result , file_MAEs )
-        file_model = path+ '/output/'+ 'model/' + dataname +'.h5'
+        file_model = path+ '/output/'+ 'model/' + 'model' + '.h5'
         tester.save_model(model, file_model)     
         return result
 
