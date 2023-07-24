@@ -1,6 +1,7 @@
 
 
-
+!pip install pytdc
+!pip install deepchem
 from data_preprocess import *
 import pandas
 from rdkit import Chem
