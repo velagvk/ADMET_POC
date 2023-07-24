@@ -13,6 +13,10 @@ import torch
 This function takes the input smiles string from the pandas dataframe and creates new columns with adjacency matrix, fingerprint vector.
 """
 def preprocess_dataset(df):
+  if torch.cuda.is_available():
+    device=torch.device('cuda')
+  else:
+    device=torch.device('cpu')
   #df=df[df['weights']!=0]
   df['mol']=df['smiles'].apply(lambda x : Chem.AddHs(Chem.MolFromSmiles(x)))
   df['atoms']=df['mol'].apply(lambda x : create_atoms(x,atom_dict))
