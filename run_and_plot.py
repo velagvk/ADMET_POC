@@ -1,7 +1,6 @@
 import torch
 import pandas as pd
 import train
-import predict
 import numpy as np
 import rdkit
 import train
