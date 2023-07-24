@@ -113,7 +113,7 @@ def train (radius, dim, layer_hidden, layer_output, dropout, batch_train,
                     tester.save_MAEs(result , file_MAEs )
                     file_model = path+ '/output/'+ 'model/' + 'model' + '.h5'
                     try:  
-                    os.makedirs(file_model)
+                        os.makedirs(file_model)
                     except OSError as e:  
                         if e.errno == errno.EEXIST:   pass
                     print("Directory '% s' created" % directory)
