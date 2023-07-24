@@ -111,12 +111,13 @@ def train (radius, dim, layer_hidden, layer_output, dropout, batch_train,
                     
                     result = '\t'.join(map(str, [epoch, time, loss_train, MAE_train, MAE_test]))
                     tester.save_MAEs(result , file_MAEs )
-                    file_model = path+ '/output/'+ 'model/' + 'model' + '.h5'
+                    
                     try:  
-                        os.makedirs(file_model)
+                        os.makedirs(path+ '/output/'+ 'model/')
                     except:  
                          pass
-                    print("Directory '% s' created" % file_model)
+                    #print("Directory '% s' created" % file_model)
+                    file_model = path+ '/output/'+ 'model/' + 'model' + '.pth'
                     tester.save_model(model, file_model)
                     print(result)
               
