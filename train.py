@@ -15,6 +15,7 @@ import matplotlib.pyplot as plt
 from tdc.single_pred import ADME
 from plot_predictions import *
 folder=sys.argv[1]
+import os
 
 
 def train (radius, dim, layer_hidden, layer_output, dropout, batch_train,
@@ -111,8 +112,10 @@ def train (radius, dim, layer_hidden, layer_output, dropout, batch_train,
                     result = '\t'.join(map(str, [epoch, time, loss_train, MAE_train, MAE_test]))
                     tester.save_MAEs(result , file_MAEs )
                     file_model = path+ '/output/'+ 'model/' + 'model' + '.h5'
-                    import os
-                    os.makedirs('file_model')
+                    try:  
+                    os.makedirs(file_model)
+                    except OSError as e:  
+                        if e.errno == errno.EEXIST:   pass
                     print("Directory '% s' created" % directory)
                     tester.save_model(model, file_model)
                     print(result)
