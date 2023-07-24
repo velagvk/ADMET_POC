@@ -29,7 +29,7 @@ def save_plot_model_predictions(path,N,dim,layer_hidden,layer_output,dropout,bat
     model.eval()
     time1=str(datetime.datetime.now())[0:13]
     file_test_result  = path+'/output/'+time1+ '_test_prediction'+ '.txt'
-    file_train_result  = path+'/output/'+time1+ '_train_prediction'+ '.txt
+    file_train_result  = path+'/output/'+time1+ '_train_prediction'+ '.txt'
     #file_train_result  = path+'/output/'+time1+ '_train_prediction'+ '.txt'
     #file_model = path+ '/output_tf/'+time1+'_model'+'.h5'
     file1=path+'/output/'+time1+'-MAE.png'
