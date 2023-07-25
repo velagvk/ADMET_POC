@@ -10,9 +10,9 @@ def rmse(y_true, y_pred):
     return np.sqrt(mean_squared_error(y_true, y_pred))   
 
 
-def plot_training_loss(path_to_file_MAEs=folder):
+def plot_training_loss(path=folder):
+    path_to_file_MAEs=folder + '/MAEs.txt'
     loss = pd.read_table(path_to_file_MAEs)
-    
     loss['MAE_test']=loss['MAE_test'].str.replace(r'\[|\]','',regex=True).apply(lambda x:float(x))
     loss['MAE_train']=loss['MAE_train'].str.replace(r'\[|\]','',regex=True).apply(lambda x:float(x))
     plt.plot(loss['MAE_test'], color='r',label='MSE of test set')
