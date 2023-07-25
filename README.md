@@ -1,4 +1,4 @@
-![image](https://github.com/velagvk/ADMET_POC/assets/139946537/44a372da-aade-4b91-8600-55111ca65322)
+
 
 
 ADMET Prediction using GNNs
