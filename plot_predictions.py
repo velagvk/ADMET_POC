@@ -44,9 +44,9 @@ def save_plot_model_predictions(path,dataset_train,dataset_test,N, dim, layer_hi
     #file_train_result  = path+'/output/'+time1+ '_train_prediction'+ '.txt'
     #file_model = path+ '/output_tf/'+time1+'_model'+'.h5'
     file1=path+'/output/'+time1+'-MAE.png'
-    file2=path+'/output'+time1+'pc-train.png'
-    file3=path+'/output'+time1+'pc-test.png'
-    file4=path+'/output'+time1+'pc-val.png'
+    file2=path+'/output/'+time1+'pc-train.png'
+    file3=path+'/output/'+time1+'pc-test.png'
+    file4=path+'/output/'+time1+'pc-val.png'
     tester=Tester(model,batch_test)
     predictions_train = tester.test_regressor(dataset_train)[1]
     tester.save_predictions(predictions_train, file_train_result )
