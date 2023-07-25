@@ -11,17 +11,19 @@ def rmse(y_true, y_pred):
 
 
 def plot_training_loss(path_to_file_MAEs=folder):
-  
-  loss = pd.read_table(path_to_file_MAEs)
-  loss['MAE_test']=loss['MAE_test'].str.replace(r'\[|\]','',regex=True).apply(lambda x:float(x))
-  loss['MAE_train']=loss['MAE_train'].str.replace(r'\[|\]','',regex=True).apply(lambda x:float(x))
-  plt.plot(loss['MAE_test'], color='r',label='MSE of test set')
+    loss = pd.read_table(path_to_file_MAEs)
+    
+    loss['MAE_test']=loss['MAE_test'].str.replace(r'\[|\]','',regex=True).apply(lambda x:float(x))
+    loss['MAE_train']=loss['MAE_train'].str.replace(r'\[|\]','',regex=True).apply(lambda x:float(x))
+    plt.plot(loss['MAE_test'], color='r',label='MSE of test set')
 #loss['MAE_test_v1']=loss['MAE_t'].apply(lambda x : x.detach().cpu().numpy())
 #plt.plot(loss['MAE_dev'], color='b',label='MSE of validation set')
-  plt.plot(loss['MAE_train'], color='y',label='MSE of train set')  
-  plt.ylabel('Loss')
-  plt.xlabel('Epoch')
-  plt.legend()
+    plt.plot(loss['MAE_train'], color='y',label='MSE of train set')  
+    plt.ylabel('Loss')
+    plt.xlabel('Epoch')
+    plt.legend()
+    file_loss=path+'/output/'+time1+'-MAE.png'
+    plt.savefig(file_loss,dpi=300)
 
 #saving model and figures
 def save_plot_model_predictions(path,dataset_train,dataset_test):
