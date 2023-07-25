@@ -16,6 +16,7 @@ from tdc.single_pred import ADME
 from plot_predictions import *
 folder=sys.argv[1]
 import os
+import plot_predictions as plt_pred
 
 
 def train (radius, dim, layer_hidden, layer_output, dropout, batch_train,
@@ -121,7 +122,7 @@ def train (radius, dim, layer_hidden, layer_output, dropout, batch_train,
                     tester.save_model(model, file_model)
                     print(result)
               
-              
+          plt_pred.save_plot_model_predictions(folder,dataset_train,dataset_test)
 
 
 
