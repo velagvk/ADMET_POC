@@ -1,5 +1,5 @@
 
-![Model] (https://github.com/velagvk/ADMET_POC/blob/main/ADMET.png)
+![Model](https://github.com/velagvk/ADMET_POC/blob/main/ADMET.png)
 
 
 ADMET Prediction using GNNs
