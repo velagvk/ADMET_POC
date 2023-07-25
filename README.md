@@ -1,4 +1,5 @@
 
+https://www.google.com/url?sa=i&url=https%3A%2F%2Fblog.atomwise.com%2Fbehind-the-ai-a-novel-approach-for-using-graph-neural-networks-to-improve-admet-predictions&psig=AOvVaw2YiHzQDzLiAU-qSq9nCpST&ust=1690347313768000&source=images&cd=vfe&opi=89978449&ved=0CBAQjRxqFwoTCNjokcuIqYADFQAAAAAdAAAAABAQ![image](https://github.com/velagvk/ADMET_POC/assets/139946537/c1308e18-d37f-494e-8de4-84216460d765)
 
 
 ADMET Prediction using GNNs
