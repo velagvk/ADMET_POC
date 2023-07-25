@@ -26,13 +26,17 @@ def plot_training_loss(path_to_file_MAEs=folder):
     plt.savefig(file_loss,dpi=300)
 
 #saving model and figures
-def save_plot_model_predictions(path,dataset_train,dataset_test):
+def save_plot_model_predictions(path,dataset_train,dataset_test,N, dim, layer_hidden, layer_output, dropout):
     torch.manual_seed(0)
-    #model = MolecularGraphNeuralNetwork(
-        #N, dim, layer_hidden, layer_output, dropout).to(device)
-    #model.load_state_dict(torch.load(r'path'+ '/output/'+time1+'model'+'.h5'))
-    model_path=path+ '/output' + '/model' + '/model.pth'
-    model=torch.load(model_path)
+    if torch.cuda.is_available():
+      device=torch.device('cuda')
+    else:
+      device=torch.device('cpu')
+    model = MolecularGraphNeuralNetwork(
+        N, dim, layer_hidden, layer_output, dropout).to(device)
+    model.load_state_dict(torch.load(path+ '/output' + '/model' + '/model.pth'))
+    #model_path
+    #model=torch.load(model_path)
     model.eval()
     time1=str(datetime.datetime.now())[0:13]
     file_test_result  = path+'/output/'+time1+ '_test_prediction'+ '.txt'
