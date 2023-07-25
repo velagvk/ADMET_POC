@@ -119,7 +119,7 @@ def train (radius, dim, layer_hidden, layer_output, dropout, batch_train,
                          pass
                     #print("Directory '% s' created" % file_model)
                     file_model = path+ '/output/'+ 'model/' + 'model' + '.pth'
-                    tester.save(model, file_model)
+                    tester.save_model(model, file_model)
                     print(result)
               
           plt_pred.save_plot_model_predictions(folder,dataset_train,dataset_test)
