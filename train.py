@@ -20,7 +20,7 @@ import plot_predictions as plt_pred
 
 
 def train (radius, dim, layer_hidden, layer_output, dropout, batch_train,
-    batch_test, lr, lr_decay, decay_interval, iteration, N ,path):
+    batch_test, lr, lr_decay, decay_interval, iteration, N ,path,data):
 
           data=ADME(name='Caco2_Wang')
           split=data.get_split()
