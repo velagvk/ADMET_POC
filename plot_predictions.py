@@ -26,7 +26,7 @@ def plot_training_loss(path_to_file_MAEs=folder):
     plt.savefig(file_loss,dpi=300)
 
 #saving model and figures
-def save_plot_model_predictions(path,dataset_train,dataset_test,N, dim, layer_hidden, layer_output, dropout):
+def save_plot_model_predictions(path,dataset_train,dataset_test,N, dim, layer_hidden, layer_output, dropout,batch_test,batch_train):
     torch.manual_seed(0)
     if torch.cuda.is_available():
       device=torch.device('cuda')
