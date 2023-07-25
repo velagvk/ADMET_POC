@@ -4,10 +4,13 @@ import matplotlib.pyplot as plt
 import datetime
 from GNN_GAN_model import *
 from sklearn.metrics import median_absolute_error,r2_score, mean_absolute_error,mean_squared_error
+import sys
+folder=sys.argv[1]
 def rmse(y_true, y_pred):
-    return np.sqrt(mean_squared_error(y_true, y_pred))
+    return np.sqrt(mean_squared_error(y_true, y_pred))   
 
-def plot_training_loss(path_to_file_MAEs):
+
+def plot_training_loss(path_to_file_MAEs=folder):
   
   loss = pd.read_table(path_to_file_MAEs)
   loss['MAE_test']=loss['MAE_test'].str.replace(r'\[|\]','',regex=True).apply(lambda x:float(x))
@@ -21,11 +24,13 @@ def plot_training_loss(path_to_file_MAEs):
   plt.legend()
 
 #saving model and figures
-def save_plot_model_predictions(path,N,dim,layer_hidden,layer_output,dropout,batch_test):
+def save_plot_model_predictions(path,dataset_train,dataset_test):
     torch.manual_seed(0)
-    model = MolecularGraphNeuralNetwork(
-        N, dim, layer_hidden, layer_output, dropout).to(device)
-    model.load_state_dict(torch.load(r'path'+ '/output/'+time1+'model'+'.h5'))
+    #model = MolecularGraphNeuralNetwork(
+        #N, dim, layer_hidden, layer_output, dropout).to(device)
+    #model.load_state_dict(torch.load(r'path'+ '/output/'+time1+'model'+'.h5'))
+    model_path=path+ '/output' + '/model' + '/model.pth'
+    model=torch.load(model_path)
     model.eval()
     time1=str(datetime.datetime.now())[0:13]
     file_test_result  = path+'/output/'+time1+ '_test_prediction'+ '.txt'
