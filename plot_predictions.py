@@ -22,6 +22,7 @@ def plot_training_loss(path=folder):
     plt.ylabel('Loss')
     plt.xlabel('Epoch')
     plt.legend()
+    time1=str(datetime.datetime.now())[0:13]
     file_loss=path+'/output/'+time1+'-MAE.png'
     plt.savefig(file_loss,dpi=300)
 
