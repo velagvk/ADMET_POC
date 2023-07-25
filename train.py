@@ -122,7 +122,7 @@ def train (radius, dim, layer_hidden, layer_output, dropout, batch_train,
                     tester.save_model(model, file_model)
                     print(result)
               
-          plt_pred.save_plot_model_predictions(folder,dataset_train,dataset_test,N, dim, layer_hidden, layer_output, dropout)
+          plt_pred.save_plot_model_predictions(folder,dataset_train,dataset_test,N, dim, layer_hidden, layer_output, dropout,batch_train,batch_test)
 
 
 
