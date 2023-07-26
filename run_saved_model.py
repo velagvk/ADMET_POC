@@ -22,14 +22,14 @@ import sys
 from Prediction import *
 path_for_saved_models=sys.argv[1]
 #dataframe of smiles string
-df=sys.argv[2]
+path_for_data=sys.argv[2]
 input=sys.argv[3]
 
 if torch.cuda.is_available():
   device = torch.device('cuda') 
 else:
   device = torch.device('cpu')
-print(df.head())
+df=pd.read_csv(path_for_data)
 dataset=preprocess_dataset(df)
 
 model=MolecularGraphNeuralNetwork(N=5000, dim=64,layer_hidden=4, layer_output=10, dropout=0.45).to(device)
