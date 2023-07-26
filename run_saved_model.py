@@ -23,12 +23,14 @@ from Prediction import *
 path_for_saved_models=sys.argv[1]
 #dataframe of smiles string
 df=sys.argv[2]
+input=sys.argv[3]
 
 if torch.cuda.is_available():
   device = torch.device('cuda') 
 else:
   device = torch.device('cpu')
 dataset=preprocess_dataset(df)
+
 model=MolecularGraphNeuralNetwork(N=5000, dim=64,layer_hidden=4, layer_output=10, dropout=0.45).to(device)
 if input=='solubility':
   model.load_state_dict(torch.load(path_for_saved_models+ '/Solubility' + '/output' + '/model' + '/model.pth'))
@@ -46,7 +48,7 @@ file_predicted_result  = path+'/output/'+time1+ '_prediction'+ '.txt'
 #file2=path+'/output/'+time1+'pc-train.png'
 #file3=path+'/output/'+time1+'pc-test.png'
 #file4=path+'/output/'+time1+'pc-val.png'
-prediction=Predict(model,batch_test)
+prediction=Predict(model,10)
 predictions = pediction.predict(dataset)[1]
 tester.save_predictions(predictions, file_predicted_result)
 
