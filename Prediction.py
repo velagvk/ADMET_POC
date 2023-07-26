@@ -218,7 +218,7 @@ class Predict(object):
         Pre=map(str,pre)
         predictions = '\n'.join(['\t'.join(x) for x in zip(SMILES, Pre)])
         #predictions = np.stack((tru, pre))
-        return  MAE, predictions
+        return  predictions
 
     def save_result(self, result, filename):
         with open(filename, 'a') as f:
