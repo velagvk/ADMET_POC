@@ -164,7 +164,7 @@ class Trainer(object):
     SAE=0
     for i in range(0,N,self.batch_train):
       data_batch=list(zip(*dataset[i:i+1+self.batch_train]))
-      Smiles,loss,predicted_scores,correct_labels=self.model.forward_regressor(data_batch,train=True)
+      Smiles,loss,predicted_scores=self.model.forward_regressor(data_batch,train=True)
       SMILES+=''.join(Smiles)+''
       P.append(predicted_scores)
       C.append(correct_labels)
