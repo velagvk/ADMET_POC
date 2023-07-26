@@ -81,7 +81,7 @@ file_predicted_result  = path+'/output/'+time1+ '_prediction'+ '.txt'
 #file4=path+'/output/'+time1+'pc-val.png'
 prediction=Predict(model,10)
 predictions = prediction.predict(dataset)[1]
-tester.save_predictions(predictions, file_predicted_result)
+prediction.save_predictions(predictions, file_predicted_result)
 
   
   
