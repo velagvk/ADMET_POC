@@ -29,6 +29,7 @@ if torch.cuda.is_available():
   device = torch.device('cuda') 
 else:
   device = torch.device('cpu')
+print(df.head())
 dataset=preprocess_dataset(df)
 
 model=MolecularGraphNeuralNetwork(N=5000, dim=64,layer_hidden=4, layer_output=10, dropout=0.45).to(device)
