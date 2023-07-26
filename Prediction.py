@@ -226,7 +226,7 @@ class Predict(object):
 
     def save_predictions(self, predictions, filename):
         with open(filename, 'w') as f:
-            f.write('Smiles\tCorrect\tPredict\n')
+            f.write('Smiles\tPredict\n')
             f.write(predictions + '\n')
 
     def save_model(self, model, filename):
