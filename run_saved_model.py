@@ -41,7 +41,7 @@ import torch
 """
 This function takes the input smiles string from the pandas dataframe and creates new columns with adjacency matrix, fingerprint vector.
 """
-def preprocess_dataset(df):
+def preprocess_dataset_1(df):
   if torch.cuda.is_available():
     device=torch.device('cuda')
   else:
