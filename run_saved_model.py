@@ -19,6 +19,7 @@ import matplotlib.pyplot as plt
 from tdc.single_pred import ADME
 from plot_predictions import *
 import sys
+from Prediction import *
 path_for_saved_models=sys.argv[1]
 #dataframe of smiles string
 df=sys.argv[2]
