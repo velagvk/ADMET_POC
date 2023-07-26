@@ -263,10 +263,10 @@ def predict(path_for_saved_models,dataset,input):
 #file2=path+'/output/'+time1+'pc-train.png'
 #file3=path+'/output/'+time1+'pc-test.png'
 #file4=path+'/output/'+time1+'pc-val.png'
-  try:  
-    os.makedirs(path+ '/output/')
-  except:  
-    pass
+    try:  
+      os.makedirs(path+ '/output/')
+    except:  
+      pass
   tester.save_predictions(predictions, file_predicted_result)
   return
     
