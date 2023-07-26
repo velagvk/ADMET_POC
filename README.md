@@ -7,7 +7,9 @@ ADMET Prediction using GNNs
 - Given the SMILES string, the fingerprint vectors are extracted. Also, the adjacency matrix is extracted from the SMILES string using the RDKIT Library.  
 MODEL DESCRIPTION
 * This model uses the graph attention and graph convolutioal networks to obtain molecular vectors.The obtained vectors are then passed through a mlp layer for both regression and classification tasks. 
-* This model is inspired from this paper and the model architechture is adapted from this paper. (https://academic.oup.com/bioinformatics/article/38/23/5262/6759368)
+* This model is inspired from the below paper and the model architechture is adapted from here.
+
+   (https://academic.oup.com/bioinformatics/article/38/23/5262/6759368)
 
 ## File Description
 
