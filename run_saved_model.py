@@ -82,7 +82,7 @@ file_predicted_result  = path+'/output/'+time1+ input+ '_prediction'+ '.txt'
 prediction=Predict(model,10)
 predictions = prediction.predict(dataset)[1]
 try:  
-  os.makedirs(path+ '/output')
+  os.makedirs(path+ '/output/')
 except:  
   pass
 prediction.save_predictions(predictions, file_predicted_result)
