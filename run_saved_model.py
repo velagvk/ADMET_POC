@@ -20,6 +20,7 @@ from tdc.single_pred import ADME
 from plot_predictions import *
 import sys
 from Prediction import *
+import os
 path_for_saved_models=sys.argv[1]
 #dataframe of smiles string
 path_for_data=sys.argv[2]
