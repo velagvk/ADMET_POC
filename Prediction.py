@@ -193,7 +193,7 @@ class Predict(object):
         SMILES, P, C = '', [], []
         for i in range(0, N, self.batch_test):
             data_batch = list(zip(*dataset[i:i + self.batch_test]))
-            (Smiles, loss, predicted_scores, correct_labels) = self.model.forward_regressor(
+            (Smiles,predicted_scores) = self.model.forward_regressor(
                 data_batch, train=False)
             SMILES += ' '.join(Smiles) + ' '
             #loss_total += loss.item()
