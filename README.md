@@ -38,7 +38,7 @@ Example script
 
 * Here, the first input is the directory and the second input is the name of the dataset.
 
-## List of Datasets used from TDC commons (SOURCE: 
+## List of Datasets used from TDC commons (SOURCE: https://tdcommons.ai/single_pred_tasks/adme)
 
 |NAME| Dataset_Description| Task_Description | No of molecules|
 |:------:|:--------------:|:-------------:| :-----------------:|
