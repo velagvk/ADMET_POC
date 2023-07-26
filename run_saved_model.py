@@ -72,7 +72,7 @@ elif input=='Lipophilicity':
 model.eval()
 time1=str(datetime.datetime.now())[0:13]
 path=path_for_saved_models
-file_predicted_result  = path+'/output/'+time1+ '_prediction'+ '.txt'
+file_predicted_result  = path+'/output/'+time1+ input+ '_prediction'+ '.txt'
     #file_train_result  = path+'/output/'+time1+ '_train_prediction'+ '.txt'
     #file_model = path+ '/output_tf/'+time1+'_model'+'.h5'
 #file1=path+'/output/'+time1+'-MAE.png'
@@ -81,6 +81,10 @@ file_predicted_result  = path+'/output/'+time1+ '_prediction'+ '.txt'
 #file4=path+'/output/'+time1+'pc-val.png'
 prediction=Predict(model,10)
 predictions = prediction.predict(dataset)[1]
+try:  
+  os.makedirs(path+ '/output')
+except:  
+  pass
 prediction.save_predictions(predictions, file_predicted_result)
 
   
