@@ -129,7 +129,7 @@ class MolecularGraphNeuralNetwork(nn.Module):
     outputs=self.W_property(vectors)
     return outputs
   def forward_regressor(self,data_batch,train):
-    inputs=data_batch[:-1]
+    inputs=data_batch
     #correct_labels=torch.cat(data_batch[-1])
     if train:
       
