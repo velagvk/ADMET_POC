@@ -267,7 +267,7 @@ def predict(path_for_saved_models,dataset,input):
       os.makedirs(path+ '/output/')
     except:  
       pass
-  tester.save_predictions(predictions, file_predicted_result)
-  return
+    tester.save_predictions(predictions, file_predicted_result)
+    return
     
    
