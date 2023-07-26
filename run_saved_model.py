@@ -19,7 +19,7 @@ import matplotlib.pyplot as plt
 from tdc.single_pred import ADME
 from plot_predictions import *
 import sys
-from Prediction import *
+from Prediction import predict
 import os
 path_for_saved_models=sys.argv[1]
 #dataframe of smiles string
@@ -68,7 +68,7 @@ dataset=preprocess_dataset_1(df)
 print(df.head())
 time1=str(datetime.datetime.now())[0:13]
 path=path_for_saved_models
-predicted_result=Prediction.predict(dataset,path_for_saved_models,input)
+predicted_result=predict(dataset,path_for_saved_models,input)
 
   
   
