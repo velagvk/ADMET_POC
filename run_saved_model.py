@@ -63,6 +63,7 @@ def preprocess_dataset_1(df):
   dataset=list(zip(*map(df.get,['smiles', 'fingerprints','adjacency','molecular_size'])))
   return dataset
 dataset=preprocess_dataset_1(df)
+print(df.head())
 model=MolecularGraphNeuralNetwork(5000,64,4,10,0.45).to(device)
 if input=='Solubility':
   model.load_state_dict(torch.load(path_for_saved_models+ '/Solubility' + '/output' + '/model' + '/model.pth'))
