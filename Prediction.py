@@ -129,13 +129,12 @@ class MolecularGraphNeuralNetwork(nn.Module):
     outputs=self.W_property(vectors)
     return outputs
   def forward_regressor(self,data_batch,train):
-    inputs=data_batch
-    #correct_labels=torch.cat(data_batch[-1])
+    inputs=data_batch[:-1]
+    correct_labels=torch.cat(data_batch[-1])
     if train:
       
       Smiles,molecular_vectors=self.gnn(inputs)
       predicted_scores=self.mlp(molecular_vectors)
-      correct_labels=predicted_scores
       a=nn.L1Loss()
       loss=a(predicted_scores,correct_labels)
       predicted_scores=predicted_scores.to('cpu').data.numpy()
@@ -145,9 +144,12 @@ class MolecularGraphNeuralNetwork(nn.Module):
       with torch.no_grad():
         Smiles,molecular_vectors=self.gnn(inputs)
         predicted_scores=self.mlp(molecular_vectors)
+        a=nn.L1Loss()
+        loss=a(predicted_scores,correct_labels)
     predicted_scores=predicted_scores.to('cpu').data.numpy()
+    correct_labels=correct_labels.to('cpu').data.numpy()
 
-    return Smiles,predicted_scores
+    return Smiles,loss,predicted_scores,correct_labels
 
 
 class Trainer(object):
@@ -164,7 +166,7 @@ class Trainer(object):
     SAE=0
     for i in range(0,N,self.batch_train):
       data_batch=list(zip(*dataset[i:i+1+self.batch_train]))
-      Smiles,loss,predicted_scores=self.model.forward_regressor(data_batch,train=True)
+      Smiles,loss,predicted_scores,correct_labels=self.model.forward_regressor(data_batch,train=True)
       SMILES+=''.join(Smiles)+''
       P.append(predicted_scores)
       C.append(correct_labels)
@@ -182,30 +184,30 @@ class Trainer(object):
     return MAE,loss_total, predictions
 
 
-class Predict(object):
+class Tester(object):
     def __init__(self, model,batch_test):
         self.model = model
         self.batch_test=batch_test
-    def predict(self, dataset):
+    def test_regressor(self, dataset):
         N = len(dataset)
         loss_total = 0
         SAE=0
         SMILES, P, C = '', [], []
         for i in range(0, N, self.batch_test):
             data_batch = list(zip(*dataset[i:i + self.batch_test]))
-            (Smiles,predicted_scores) = self.model.forward_regressor(
+            (Smiles, loss, predicted_scores, correct_labels) = self.model.forward_regressor(
                 data_batch, train=False)
             SMILES += ' '.join(Smiles) + ' '
             #loss_total += loss.item()
             P.append(predicted_scores)
-            #C.append(correct_labels)
-            #SAE += sum(np.abs(predicted_scores-correct_labels))
+            C.append(correct_labels)
+            SAE += sum(np.abs(predicted_scores-correct_labels))
         
-        #MAE=SAE/N
+        MAE=SAE/N
         SMILES = SMILES.strip().split()
-        #tru = np.concatenate(C)
+        tru = np.concatenate(C)
         pre = np.concatenate(P)
-        #loss=np.abs(pre-tru)
+        loss=np.abs(pre-tru)
         #pred = [1 if i >0.15 else 0 for i in pre]
         #AUC = roc_auc_score(tru, pre)
         #cnf_matrix=confusion_matrix(tru,pred)
@@ -214,11 +216,11 @@ class Predict(object):
         #fn = cnf_matrix[1, 0]
         #fp = cnf_matrix[0, 1]
         #cc = (tp + tn) / (tp + fp + fn + tn)
-        #Tru=map(str,tru)
+        Tru=map(str,tru)
         Pre=map(str,pre)
-        predictions = '\n'.join(['\t'.join(x) for x in zip(SMILES, Pre)])
+        predictions = '\n'.join(['\t'.join(x) for x in zip(SMILES, Tru, Pre)])
         #predictions = np.stack((tru, pre))
-        return  predictions
+        return  MAE, predictions
 
     def save_result(self, result, filename):
         with open(filename, 'a') as f:
@@ -226,9 +228,46 @@ class Predict(object):
 
     def save_predictions(self, predictions, filename):
         with open(filename, 'w') as f:
-            f.write('Smiles\tPredict\n')
+            f.write('Smiles\tCorrect\tPredict\n')
             f.write(predictions + '\n')
 
     def save_model(self, model, filename):
         torch.save(model.state_dict(), filename)
+
+    def save_MAEs(self, MAEs, filename):
+        with open(filename, 'a') as f:
+            f.write(MAEs + '\n')
+
+
+def predict(path_for_saved_models,dataset,input):
+    if torch.cuda.is_available():
+        device = torch.device('cuda')
+        print('The code uses a GPU!')
+    else:
+        device = torch.device('cpu')
+        print('The code uses a CPU...')
+    model=MolecularGraphNeuralNetwork(5000,64,4,10,0.45).to(device)
+    if input=='Solubility':
+      model.load_state_dict(torch.load(path_for_saved_models+ '/Solubility' + '/output' + '/model' + '/model.pth'))
+    elif input=='Permeability':
+      model.load_state_dict(torch.load(path_for_saved_models+ '/Permeability' +  '/output' + '/model' + '/model.pth'))
+    elif input=='Lipophilicity':
+      model.load_state_dict(torch.load(path_for_saved_models + '/Lipophilicity' + '/output' + '/model' + '/model.pth'))
+    model.eval()
+    tester = Tester(model,10)
+    predictions_train = tester.test_regressor(dataset_train)[1]
+    file_predicted_result  = path_for_saved_models+'/output/'+time1+ input+ '_prediction'+ '.txt'
+    #file_train_result  = path+'/output/'+time1+ '_train_prediction'+ '.txt'
+    #file_model = path+ '/output_tf/'+time1+'_model'+'.h5'
+#file1=path+'/output/'+time1+'-MAE.png'
+#file2=path+'/output/'+time1+'pc-train.png'
+#file3=path+'/output/'+time1+'pc-test.png'
+#file4=path+'/output/'+time1+'pc-val.png'
+  try:  
+    os.makedirs(path+ '/output/')
+  except:  
+    pass
+  tester.save_predictions(predictions, file_predicted_result)
+  return
+    
    
