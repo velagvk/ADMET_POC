@@ -32,11 +32,11 @@ else:
 dataset=preprocess_dataset(df)
 
 model=MolecularGraphNeuralNetwork(N=5000, dim=64,layer_hidden=4, layer_output=10, dropout=0.45).to(device)
-if input=='solubility':
+if input=='Solubility':
   model.load_state_dict(torch.load(path_for_saved_models+ '/Solubility' + '/output' + '/model' + '/model.pth'))
-elif input=='permeability':
+elif input=='Permeability':
   model.load_state_dict(torch.load(path_for_saved_models+ '/Permeability' +  '/output' + '/model' + '/model.pth'))
-elif input=='lipophilicity':
+elif input=='Lipophilicity':
   model.load_state_dict(torch.load(path_for_saved_models + '/Lipophilicity' + '/output' + '/model' + '/model.pth'))
 model.eval()
 time1=str(datetime.datetime.now())[0:13]
