@@ -40,7 +40,7 @@ Example script
 
 ## List of Datasets used from TDC commons (SOURCE: https://tdcommons.ai/single_pred_tasks/adme)
 
-|NAME| Dataset_Description| Task_Description | No of molecules|
+|DATASET NAME| Dataset_Description| Task_Description | No of molecules|
 |:------:|:--------------:|:-------------:| :-----------------:|
 | Caco-2|The human colon epithelial cancer cell line, Caco-2, is used as an in vitro model to simulate the human intestinal tissue. The experimental result on the rate of drug passing through the Caco-2 cells can approximate the rate at which the drug permeates through the human intestinal tissue.| Regression. Given a drug SMILES string, predict the Caco-2 cell effective permeability.| 906|
 | Liophilicity_Astrazenca  | Lipophilicity measures the ability of a drug to dissolve in a lipid (e.g. fats, oils) environment. High lipophilicity often leads to high rate of metabolism, poor solubility, high turn-over, and low absorption. From MoleculeNet.| Regression. Given a drug SMILES string, predict the activity of lipophilicity.|4200
