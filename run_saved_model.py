@@ -56,38 +56,19 @@ def preprocess_dataset_1(df):
   df['adjacency']=df['mol'].apply(lambda x: Chem.GetAdjacencyMatrix(x))
   df['adjacency'] = df['adjacency'].apply(lambda x:torch.FloatTensor(x).to(device))
   df['fingerprints']=df['fingerprints'].apply(lambda x : torch.LongTensor(x).to(device))
-  #df['property']=df['property'].apply(lambda x : torch.FloatTensor([[float(x)]]).to(device))
+  #
   df['adjacnency_len']=df['adjacency'].apply(lambda x:len(x))
   df['fingerprints_len']=df['fingerprints'].apply(lambda x:len(x))
   df=df[df['adjacnency_len']==df['fingerprints_len']]
+  df['property']=0
+  df['property']=df['property'].apply(lambda x : torch.FloatTensor([[float(x)]]).to(device))
   dataset=list(zip(*map(df.get,['smiles', 'fingerprints','adjacency','molecular_size'])))
   return dataset
 dataset=preprocess_dataset_1(df)
 print(df.head())
-model=MolecularGraphNeuralNetwork(5000,64,4,10,0.45).to(device)
-if input=='Solubility':
-  model.load_state_dict(torch.load(path_for_saved_models+ '/Solubility' + '/output' + '/model' + '/model.pth'))
-elif input=='Permeability':
-  model.load_state_dict(torch.load(path_for_saved_models+ '/Permeability' +  '/output' + '/model' + '/model.pth'))
-elif input=='Lipophilicity':
-  model.load_state_dict(torch.load(path_for_saved_models + '/Lipophilicity' + '/output' + '/model' + '/model.pth'))
-model.eval()
 time1=str(datetime.datetime.now())[0:13]
 path=path_for_saved_models
-file_predicted_result  = path+'/output/'+time1+ input+ '_prediction'+ '.txt'
-    #file_train_result  = path+'/output/'+time1+ '_train_prediction'+ '.txt'
-    #file_model = path+ '/output_tf/'+time1+'_model'+'.h5'
-#file1=path+'/output/'+time1+'-MAE.png'
-#file2=path+'/output/'+time1+'pc-train.png'
-#file3=path+'/output/'+time1+'pc-test.png'
-#file4=path+'/output/'+time1+'pc-val.png'
-prediction=Predict(model,10)
-predictions = prediction.predict(dataset)[1]
-try:  
-  os.makedirs(path+ '/output/')
-except:  
-  pass
-prediction.save_predictions(predictions, file_predicted_result)
+predicted_result=Prediction.predict(dataset,path_for_saved_models,input)
 
   
   
