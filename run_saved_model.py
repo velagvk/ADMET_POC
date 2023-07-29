@@ -68,6 +68,8 @@ dataset=preprocess_dataset_1(df)
 print(df.head())
 time1=str(datetime.datetime.now())[0:13]
 path=path_for_saved_models
+print(path)
+print(dataset.head())
 predicted_result=predict(dataset,path_for_saved_models,input)
 
   
