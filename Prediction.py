@@ -239,7 +239,7 @@ class Tester(object):
             f.write(MAEs + '\n')
 
 
-def predict(path_for_saved_models,dataset,input):
+def predict(dataset,path_for_saved_models,input):
     if torch.cuda.is_available():
         device = torch.device('cuda')
         print('The code uses a GPU!')
