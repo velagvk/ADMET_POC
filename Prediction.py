@@ -257,7 +257,8 @@ def predict(dataset,path_for_saved_models,input):
     model.eval()
     tester = Tester(model,10)
     predictions_train = tester.test_regressor(dataset)[1]
-    time1=str(datetime.datetime().now())[0:13]
+    time1=str(datetime.datetime.now())[0:13]
+    
     file_predicted_result  = path_for_saved_models+'/output/'+time1+ input+ '_prediction'+ '.txt'
     #file_train_result  = path+'/output/'+time1+ '_train_prediction'+ '.txt'
     #file_model = path+ '/output_tf/'+time1+'_model'+'.h5'
