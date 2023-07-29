@@ -62,7 +62,7 @@ def preprocess_dataset_1(df):
   df=df[df['adjacnency_len']==df['fingerprints_len']]
   df['property']=0
   df['property']=df['property'].apply(lambda x : torch.FloatTensor([[float(x)]]).to(device))
-  dataset=list(zip(*map(df.get,['smiles', 'fingerprints','adjacency','molecular_size'])))
+  dataset=list(zip(*map(df.get,['smiles', 'fingerprints','adjacency','molecular_size','prpoerty'])))
   return dataset
 dataset=preprocess_dataset_1(df)
 print(df.head())
