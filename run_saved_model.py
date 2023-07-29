@@ -65,11 +65,11 @@ def preprocess_dataset_1(df):
   dataset=list(zip(*map(df.get,['smiles', 'fingerprints','adjacency','molecular_size','property'])))
   return dataset
 dataset=preprocess_dataset_1(df)
-print(df.head())
+#print(df.head())
 time1=str(datetime.datetime.now())[0:13]
 path=path_for_saved_models
-print(path)
-print(dataset)
+#print(path)
+#print(dataset)
 predicted_result=predict(dataset,path_for_saved_models,input)
 
   
