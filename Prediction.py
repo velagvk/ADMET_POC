@@ -256,7 +256,7 @@ def predict(dataset,path_for_saved_models,input):
       model.load_state_dict(torch.load(path_for_saved_models + '/Lipophilicity' + '/output' + '/model' + '/model.pth'))
     model.eval()
     tester = Tester(model,10)
-    predictions_train = tester.test_regressor(dataset)[1]
+    predictions = tester.test_regressor(dataset)[1]
     time1=str(datetime.datetime.now())[0:13]
     
     file_predicted_result  = path_for_saved_models+'/output/'+time1+ input+ '_prediction'+ '.txt'
