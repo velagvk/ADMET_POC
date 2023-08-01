@@ -1,9 +1,9 @@
 
 ## Running saved models
 
--The saved models (.pth) files are stored in the property/output/model/model.pth. The 'run_saved_model.py' file runs saved models and save predictions
+- The saved models (.pth) files are stored in the property/output/model/model.pth. The 'run_saved_model.py' file runs saved models and save predictions
 
--Script for running the saved models
+- Script for running the saved models
 
 !python run_saved_model.py 'path_for_saved_models' 'path_for_csv_file' 'Property to predict'
 
