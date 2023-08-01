@@ -10,6 +10,6 @@
 Sample script for running the saved models
 
 ```
-!python run_saved_model.py 'ADMET_GITHUB_Folder/saved_models' 'ADMET_GITHUB_Folder/sample_dataset/delaney-processed.csv' 'Solubility'
+!python run_saved_model.py 'ADMET_GITHUB_Folder/saved_models' 'ADMET_GITHUB_Folder/example_dataset/delaney-processed.csv' 'Solubility'
 
 ```
