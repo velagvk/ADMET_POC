@@ -1,0 +1,1 @@
+Epoch	Time(sec)	Loss_train	Loss_test	prediction_train	prediction_test
